@@ -1,4 +1,4 @@
 # Special untracked for git
 
-# 
+# .gitignore,package_json, Readme_md npm
 node_modules
