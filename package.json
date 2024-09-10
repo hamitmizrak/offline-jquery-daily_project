@@ -1,0 +1,34 @@
+{
+  "name": "offline_jquery_daily_project",
+  "version": "1.0.0",
+  "description": "Html5,css3,js,ejs,tailwindcss,jquery,ajax,nodejs,express,mongodb,git",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hamitmizrak/offline-jquery-daily_project.git"
+  },
+  "keywords": [
+    "Daily",
+    "Html5",
+    "css3",
+    "js",
+    "ejs",
+    "tailwindcss",
+    "jquery",
+    "ajax",
+    "nodejs",
+    "express",
+    "mongodb",
+    "git",
+    "github"
+  ],
+  "author": "Yüksek Bilgisayar Mühendisi Hamit Mızrak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hamitmizrak/offline-jquery-daily_project/issues"
+  },
+  "homepage": "https://github.com/hamitmizrak/offline-jquery-daily_project#readme"
+}
