@@ -1,4 +1,4 @@
 # Special untracked for git
 
-# npm install, package create
+# npm, npm install, package, create, bashscript
 node_modules

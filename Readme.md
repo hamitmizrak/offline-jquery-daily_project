@@ -309,8 +309,10 @@ LTS(Long Term Support: Uzaun vadeli destek)
 
 
 
-## Teknolojiler
+## Cloud MongoDB
 ```sh
+
+mongodb+srv://hamitmizrak:aJhJSvL3WbYCCeo8@jquery.txe5e.mongodb.net/?retryWrites=true&w=majority&appName=jquery
 
 ```
 ---
