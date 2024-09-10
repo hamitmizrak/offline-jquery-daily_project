@@ -3,6 +3,8 @@
 # Not: Eğer linux üzerinden çalıştıracaksak chmod ile çalıştırarak yetkilendirelim
 # x: eXecute
 chmod +x npm_local.sh
+chmod +x project_docker.sh
+chmod +x project_manuel.sh
 
 
 # LOCAL SAVE

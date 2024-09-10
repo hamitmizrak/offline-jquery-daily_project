@@ -2,7 +2,7 @@
   "name": "offline_jquery_daily_project",
   "version": "1.0.0",
   "description": "Html5,css3,js,ejs,tailwindcss,jquery,ajax,nodejs,express,mongodb,git",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": "test"
   },
@@ -60,5 +60,6 @@
     "nodemon": "^3.1.4",
     "sass": "^1.78.0",
     "typescript": "^5.6.2"
-  }
+  },
+  "proxy":"http://localhost:1111/"
 }
