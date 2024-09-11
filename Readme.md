@@ -74,6 +74,17 @@ yes
 
 ```
 ---
+
+
+---
+## Tailwindcss
+npx tailwindcss init => tailwind.config.js
+```sh
+
+```
+
+
+
 ## NPM INSTALL => NPM (Node Package Manager)
 ```sh
 npm search express
@@ -318,6 +329,14 @@ mongodb+srv://hamitmizrak:aJhJSvL3WbYCCeo8@jquery.txe5e.mongodb.net/?retryWrites
 ---
 ## Teknolojiler
 ```sh
+jQuery AJAX: Sayfa yeniden yüklenmeden veri işlemlerini gerçekleştirmek için kullanacağız.
+HTML5: Sayfa yapısının temelini oluşturacak.
+CSS3: Özelleştirilmiş stiller için kullanılacak.
+TailwindCSS: Hızlı ve modern bir arayüz oluşturmak için kullanacağız.
+Node.js: Sunucu tarafını yöneteceğiz.
+Express: Sunucu işlemlerini kolaylaştırmak için kullanılacak.
+TypeScript: Sunucu tarafında daha güvenli ve tip destekli bir ortam sağlayacağız.
+EJS: Dinamik HTML sayfaları oluşturmak için kullanılacak.
 
 ```
 ---
