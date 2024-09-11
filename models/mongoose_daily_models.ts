@@ -14,7 +14,7 @@
 // 2. YOL
 // IMPORT
 import { Schema, model } from "mongoose";
-
+ 
 // Mongodb için Schema
 const DailyPostSchema = new Schema(
   {
