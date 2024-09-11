@@ -1,4 +1,4 @@
 # Special untracked for git
 
-# npm, npm install, package, create, bashscript
+# env,mongoose_daily_models_ts
 node_modules
