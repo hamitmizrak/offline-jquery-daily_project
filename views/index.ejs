@@ -11,7 +11,7 @@
       rel="stylesheet"
     />
   </head>
-  <body>
+  <body class="ml-9 mr-9">
     <div class="container mx-auto mt-10">
       <h1 class="text-3xl font-bold mb-4 mt-2">Daily List</h1>
       <button
@@ -23,203 +23,118 @@
 
       <!-- DAILY LIST -->
       <div class="mt-6" id="daily-list">
-        <% dailyList.forEach(function(temp){ %>
-          <div
-            class="bg-white p-4 shadow-md mb-4 rounded"
-            data-id="<%= temp._id %>"
-          >
-            <h2 class="text-xl font-bold"><%= temp.header %></h2>
-            <p><%= temp.content %></p>
-
-            <a href="/daily/edit/<%= temp._id %>" class="bg-blue-500 text-white px-4 py-2 rounded edit-btn" data-id="<%= temp._id %>">
-                Düzenle
-              </a>
-
-            <button class="bg-blue-500 text-white px-4 py-2 rounded edit-btn" data-id="<%= temp._id %>">
-              Düzenle
-            </button>
-
-            <button
-              class="bg-red-500 text-white px-4 py-2 rounded delete-btn"
-              data-id="<%= temp._id %>"
-            >
-              Sil
-            </button>
-          </div>
-        <% }) %>
+        <table class="min-w-full bg-white border border-gray-200">
+          <thead>
+            <tr>
+              <th class="py-2 px-4 border-b border-gray-200 text-left">Başlık</th>
+              <th class="py-2 px-4 border-b border-gray-200 text-left">İçerik</th>
+              <th class="py-2 px-4 border-b border-gray-200 text-left">Yazar</th>
+              <th class="py-2 px-4 border-b border-gray-200 text-left">Etiketler</th>
+              <th class="py-2 px-4 border-b border-gray-200 text-left">Durum</th>
+              <th class="py-2 px-4 border-b border-gray-200 text-left">İşlemler</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% dailyList.forEach(function(temp){ %>
+            <tr data-id="<%= temp._id %>" class="hover:bg-gray-100">
+              <td class="py-2 px-4 border-b border-gray-200"><%= temp.header %></td>
+              <td class="py-2 px-4 border-b border-gray-200"><%= temp.content %></td>
+              <td class="py-2 px-4 border-b border-gray-200"><%= temp.author %></td>
+              <td class="py-2 px-4 border-b border-gray-200"><%= temp.tags %></td>
+              <td class="py-2 px-4 border-b border-gray-200"><%= temp.status %></td>
+              <td class="py-2 px-4 border-b border-gray-200 flex space-x-2">
+                <a href="/daily/edit/<%= temp._id %>" class="bg-blue-500 text-white px-4 py-2 rounded edit-btn" data-id="<%= temp._id %>">
+                  Düzenle
+                </a>
+                <button class="bg-red-500 text-white px-4 py-2 rounded delete-btn" data-id="<%= temp._id %>">
+                  Sil
+                </button>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
       </div>
-    </div>
+      
     <!-- end container-->
 
     <!-- DAILY CREATE MODAL -->
     <div
-      id="createModal"
-      class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center"
-    >
-      <div class="bg-white rounded p-6 shadow-md">
-        <h2 class="text-2xl mb-4">Daily Create</h2>
-        <form id="createForm">
-          <!-- HEADER -->
-          <div class="mb-4">
-            <label for="createHeader" class="block text-sm font-bold mb-2"
-              >Başlık</label
-            >
-            <input
-              type="text"
-              id="createHeader"
-              name="header"
-              class="w-full p-2 border rounded"
-              required
-            />
-          </div>
-
-          <!-- CONTENT -->
-          <div class="mb-4">
-            <label for="createContent" class="block text-sm font-bold mb-2"
-              >İçerik</label
-            >
-            <textarea
-              rows="4"
-              id="createContent"
-              name="content"
-              class="w-full p-2 border rounded"
-              required
-            ></textarea>
-          </div>
-
-          <!-- AUTHOR -->
-          <div class="mb-4">
-            <label for="createAuthor" class="block text-sm font-bold mb-2"
-              >Yazar</label
-            >
-            <input
-              type="text"
-              id="createAuthor"
-              name="author"
-              class="w-full p-2 border rounded"
-              required
-            />
-          </div>
-
-          <!-- TAGS -->
-          <div class="mb-4">
-            <label for="createTags" class="block text-sm font-bold mb-2"
-              >Etiketler</label
-            >
-            <input
-              type="text"
-              id="createTags"
-              name="tags"
-              class="w-full p-2 border rounded"
-              required
-            />
-          </div>
-
-          <!-- BUTTONS -->
-          <div class="mb-4">
-            <button
-              type="submit"
-              class="bg-blue-500 text-white px-4 py-2 rounded"
-            >
-              Kaydet
-            </button>
-            <button
-              type="button"
-              id="closeCreateModal"
-              class="bg-gray-500 text-white px-4 py-2 rounded"
-            >
-              Kapat
-            </button>
-          </div>
-        </form>
-      </div>
+    id="createModal"
+    class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center"
+  >
+    <div class="bg-white rounded p-6 shadow-md w-3/4 max-w-4xl">
+      <h2 class="text-2xl mb-4">Daily Create</h2>
+      <form id="createForm">
+        <!-- HEADER -->
+        <div class="mb-4">
+          <label for="createHeader" class="block text-sm font-bold mb-2">Başlık</label>
+          <input
+            type="text"
+            id="createHeader"
+            name="header"
+            class="w-full p-2 border rounded"
+            required
+          />
+        </div>
+  
+        <!-- CONTENT -->
+        <div class="mb-4">
+          <label for="createContent" class="block text-sm font-bold mb-2">İçerik</label>
+          <textarea
+            rows="4"
+            id="createContent"
+            name="content"
+            class="w-full p-2 border rounded"
+            required
+          ></textarea>
+        </div>
+  
+        <!-- AUTHOR -->
+        <div class="mb-4">
+          <label for="createAuthor" class="block text-sm font-bold mb-2">Yazar</label>
+          <input
+            type="text"
+            id="createAuthor"
+            name="author"
+            class="w-full p-2 border rounded"
+            required
+          />
+        </div>
+  
+        <!-- TAGS -->
+        <div class="mb-4">
+          <label for="createTags" class="block text-sm font-bold mb-2">Etiketler</label>
+          <input
+            type="text"
+            id="createTags"
+            name="tags"
+            class="w-full p-2 border rounded"
+            required
+          />
+        </div>
+  
+        <!-- BUTTONS -->
+        <div class="mb-4">
+          <button
+            type="submit"
+            class="bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            Kaydet
+          </button>
+          <button
+            type="button"
+            id="closeCreateModal"
+            class="bg-gray-500 text-white px-4 py-2 rounded"
+          >
+            Kapat
+          </button>
+        </div>
+      </form>
     </div>
+  </div>
+  
 
-    <!-- DAILY UPDATE MODAL -->
-    <div
-      id="editModal"
-      class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center"
-    >
-      <div class="bg-white rounded p-6 shadow-md">
-        <h2 class="text-2xl mb-4">Daily Update</h2>
-        <form id="editForm">
-          <input type="hidden" id="editId" />
-
-          <!-- HEADER -->
-          <div class="mb-4">
-            <label for="editHeader" class="block text-sm font-bold mb-2"
-              >Başlık</label
-            >
-            <input
-              type="text"
-              id="editHeader"
-              name="header"
-              class="w-full p-2 border rounded"
-              required
-            />
-          </div>
-
-          <!-- CONTENT -->
-          <div class="mb-4">
-            <label for="editContent" class="block text-sm font-bold mb-2"
-              >İçerik</label
-            >
-            <textarea
-              rows="4"
-              id="editContent"
-              name="content"
-              class="w-full p-2 border rounded"
-              required
-            ></textarea>
-          </div>
-
-          <!-- AUTHOR -->
-          <div class="mb-4">
-            <label for="editAuthor" class="block text-sm font-bold mb-2"
-              >Yazar</label
-            >
-            <input
-              type="text"
-              id="editAuthor"
-              name="author"
-              class="w-full p-2 border rounded"
-              required
-            />
-          </div>
-
-          <!-- TAGS -->
-          <div class="mb-4">
-            <label for="editTags" class="block text-sm font-bold mb-2"
-              >Etiketler</label
-            >
-            <input
-              type="text"
-              id="editTags"
-              name="tags"
-              class="w-full p-2 border rounded"
-              required
-            />
-          </div>
-
-          <!-- BUTTONS -->
-          <div class="mb-4">
-            <button
-              type="submit"
-              class="bg-blue-500 text-white px-4 py-2 rounded"
-            >
-              Güncelle
-            </button>
-            <button
-              type="button"
-              id="closeEditModal"
-              class="bg-gray-500 text-white px-4 py-2 rounded"
-            >
-              Kapat
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
 
     <!-- DELETE CONFIRMATION MODAL -->
     <div
