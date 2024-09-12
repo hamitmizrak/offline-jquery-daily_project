@@ -2,9 +2,10 @@
   "name": "offline_jquery_daily_project",
   "version": "1.0.0",
   "description": "Html5,css3,js,ejs,tailwindcss,jquery,ajax,nodejs,express,mongodb,git",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "start": "nodemon --exec ts-node index.ts"
   },
   "repository": {
     "type": "git",
@@ -56,10 +57,16 @@
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/preset-env": "^7.25.4",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/csurf": "^1.11.5",
+    "@types/swagger-jsdoc": "^6.0.4",
+    "@types/swagger-ui-express": "^4.1.6",
     "eslint": "^9.10.0",
     "nodemon": "^3.1.4",
     "sass": "^1.78.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.6.2"
   },
-  "proxy":"http://localhost:1111/"
+  "proxy": "http://localhost:1111/"
 }

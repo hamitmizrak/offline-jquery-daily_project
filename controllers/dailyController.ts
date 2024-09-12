@@ -1,5 +1,5 @@
 // Import
-import Daily from "../models/mongoose_daily_models";
+import Daily from "../models/mongoose_daily_models.js";
 
 // Request, Response (Express)
 import { Request, Response } from "express";
