@@ -26,6 +26,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+console.info("index.js Server 1111 portunda ayağa kalktı");
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const csurf_1 = __importDefault(require("csurf"));
@@ -109,6 +111,9 @@ app.use('/daily', daily_api_routes_js_1.default);
 // Sunucu Başlatma
 const port = 1111;
 app.listen(port, () => {
-    console.log(`Sunucu ${port} portunda çalışıyor http://localhost:${port}`);
+    console.log(`Sunucu ${port} portunda çalışıyor http://localhost:${port}/daily/list`);
     logger.info(`Sunucu ${port} portunda çalışıyor http://localhost:${port}`);
 });
+// http://localhost:1111/daily/list
+// http://localhost:1111/daily/create
+// http://localhost:1111/daily/edit/:id

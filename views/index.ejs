@@ -3,241 +3,350 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dail Project</title>
+    <title>Daily Project</title>
 
-    <!-- Tailwind -->
+    <!-- Tailwind CSS -->
     <link
       href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
       rel="stylesheet"
     />
   </head>
   <body>
-    <!-- start codes
-    div.container.mx-auto.mt-10>h1.text-3xl.font-bold.mb-4.mt-2{Daily
-    Project}+button.bg-blue-500.text-white.px-4.py-2.rounded{Daily Create} -->
     <div class="container mx-auto mt-10">
       <h1 class="text-3xl font-bold mb-4 mt-2">Daily List</h1>
-      <button id="openCreateModal" class="bg-blue-500 text-white px-4 py-2 rounded">
-       New Daily Create
+      <button
+        id="openCreateModal"
+        class="bg-blue-500 text-white px-4 py-2 rounded"
+      >
+        New Daily Create
       </button>
 
       <!-- DAILY LIST -->
       <div class="mt-6" id="daily-list">
         <% dailyList.forEach(function(temp){ %>
-            <div class="bg-white p-4 shadow-md mb-4 rounded" data-id="<% temp._id %>">
-                <h2 class="text-xl font-bold"><%= temp.header%></h2>
-                <p><%= temp.content%></p>
-                <button class="text-blue-500 edit-btn"  data-id="<% temp._id %>">Düzenle</button>
-                <button class="text-red-500 delete-btn"  data-id="<% temp._id %>">Sil</button>
-            </div>
-        <%}) %>
+          <div
+            class="bg-white p-4 shadow-md mb-4 rounded"
+            data-id="<%= temp._id %>"
+          >
+            <h2 class="text-xl font-bold"><%= temp.header %></h2>
+            <p><%= temp.content %></p>
+            <button class="bg-blue-500 text-white px-4 py-2 rounded edit-btn" data-id="<%= temp._id %>">
+              Düzenle
+            </button>
+
+            <button
+            class="bg-red-500 text-white px-4 py-2 rounded delete-btn"
+             data-id="<%= temp._id %>"
+          >
+            Sil
+          </button>
+          </div>
+        <% }) %>
       </div>
-    </div>  <!-- end container-->
+    </div>
+    <!-- end container-->
 
-       <!-- DAILY CREATE -->   
-      <div id="createModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+    <!-- DAILY CREATE MODAL -->
+    <div
+      id="createModal"
+      class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center"
+    >
+      <div class="bg-white rounded p-6 shadow-md">
+        <h2 class="text-2xl mb-4">Daily Create</h2>
+        <form id="createForm">
+          <!-- HEADER -->
+          <div class="mb-4">
+            <label for="createHeader" class="block text-sm font-bold mb-2"
+              >Başlık</label
+            >
+            <input
+              type="text"
+              id="createHeader"
+              name="header"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+
+          <!-- CONTENT -->
+          <div class="mb-4">
+            <label for="createContent" class="block text-sm font-bold mb-2"
+              >İçerik</label
+            >
+            <textarea
+              rows="4"
+              id="createContent"
+              name="content"
+              class="w-full p-2 border rounded"
+              required
+            ></textarea>
+          </div>
+
+          <!-- AUTHOR -->
+          <div class="mb-4">
+            <label for="createAuthor" class="block text-sm font-bold mb-2"
+              >Yazar</label
+            >
+            <input
+              type="text"
+              id="createAuthor"
+              name="author"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+
+          <!-- TAGS -->
+          <div class="mb-4">
+            <label for="createTags" class="block text-sm font-bold mb-2"
+              >Etiketler</label
+            >
+            <input
+              type="text"
+              id="createTags"
+              name="tags"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="mb-4">
+            <button
+              type="submit"
+              class="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Kaydet
+            </button>
+            <button
+              type="button"
+              id="closeCreateModal"
+              class="bg-gray-500 text-white px-4 py-2 rounded"
+            >
+              Kapat
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- DAILY UPDATE MODAL -->
+    <div
+      id="editModal"
+      class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center"
+    >
+      <div class="bg-white rounded p-6 shadow-md">
+        <h2 class="text-2xl mb-4">Daily Update</h2>
+        <form id="editForm">
+          <input type="hidden" id="editId" />
+
+          <!-- HEADER -->
+          <div class="mb-4">
+            <label for="editHeader" class="block text-sm font-bold mb-2"
+              >Başlık</label
+            >
+            <input
+              type="text"
+              id="editHeader"
+              name="header"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+
+          <!-- CONTENT -->
+          <div class="mb-4">
+            <label for="editContent" class="block text-sm font-bold mb-2"
+              >İçerik</label
+            >
+            <textarea
+              rows="4"
+              id="editContent"
+              name="content"
+              class="w-full p-2 border rounded"
+              required
+            ></textarea>
+          </div>
+
+          <!-- AUTHOR -->
+          <div class="mb-4">
+            <label for="editAuthor" class="block text-sm font-bold mb-2"
+              >Yazar</label
+            >
+            <input
+              type="text"
+              id="editAuthor"
+              name="author"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+
+          <!-- TAGS -->
+          <div class="mb-4">
+            <label for="editTags" class="block text-sm font-bold mb-2"
+              >Etiketler</label
+            >
+            <input
+              type="text"
+              id="editTags"
+              name="tags"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="mb-4">
+            <button
+              type="submit"
+              class="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Güncelle
+            </button>
+            <button
+              type="button"
+              id="closeEditModal"
+              class="bg-gray-500 text-white px-4 py-2 rounded"
+            >
+              Kapat
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+        <!-- DELETE CONFIRMATION MODAL -->
+        <div
+        id="deleteModal"
+        class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center"
+      >
         <div class="bg-white rounded p-6 shadow-md">
-            <h2 class="text-2xl mb-4">Daily Create</h2>
-            <form  id="createForm">
-
-                <!-- HEADER -->
-                <div class="mb-4">
-                    <label for="createHeader" class="block text-sm font-bold mb-2">Başlık</label>
-                    <input type="text" id="createHeader" name="createHeader" class="w-full p-2 border rounded">
-                </div>
-
-
-                <!-- CONTENT -->
-                <div class="mb-4">
-                    <label for="createContent" class="block text-sm font-bold mb-2">Başlık</label>
-                    <textarea rows="4" id="createContent" name="createContent"  class="w-full p-2 border rounded" >
-                </div>
-
-
-                <!-- AUTHOR -->
-                <div class="mb-4">
-                    <label for="createAuthor" class="block text-sm font-bold mb-2">Başlık</label>
-                    <input type="text" id="createAuthor" name="createAuthor" class="w-full p-2 border rounded">
-                </div>
-
-
-                <!-- TAGS -->
-                <div class="mb-4">
-                    <label for="createTags" class="block text-sm font-bold mb-2">Başlık</label>
-                    <input type="text"  id="createTags" name="createTags" class="w-full p-2 border rounded">
-                </div>
-
-                 <!-- BUTTON -->
-                 <div class="mb-4">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Kaydet</button>
-                    <button type="button" id="closeCreateModal"  class="bg-gray-500 text-white px-4 py-2 rounded">Kapat</button>
-                 </div>
-            </form>
+          <h2 class="text-2xl mb-4">Silmek istediğinize emin misiniz?</h2>
+          <input type="hidden" id="deleteId" />
+          <button
+            id="confirmDelete"
+            class="bg-red-500 text-white px-4 py-2 rounded"
+          >
+            Sil
+          </button>
+          <button
+            id="closeDeleteModal"
+            class="bg-gray-500 text-white px-4 py-2 rounded"
+          >
+            Kapat
+          </button>
         </div>
-      </div> <!-- end daily Create-->
+      </div>
 
-
-       <!-- DAILY UPDATE -->   
-       <div id="editModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
-        <div class="bg-white rounded p-6 shadow-md">
-            <h2 class="text-2xl mb-4">Daily Update</h2>
-            <form  id="editForm">
-
-                <input type="hidden" id="editId">
-
-                <!-- HEADER -->
-                <div class="mb-4">
-                    <label for="editHeader" class="block text-sm font-bold mb-2">Başlık</label>
-                    <input type="text" id="editHeader" name="editHeader" class="w-full p-2 border rounded">
-                </div>
-
-
-                <!-- CONTENT -->
-                <div class="mb-4">
-                    <label for="editContent" class="block text-sm font-bold mb-2">Başlık</label>
-                    <textarea rows="4" id="editContent" name="editContent"  class="w-full p-2 border rounded" >
-                </div>
-
-
-                <!-- AUTHOR -->
-                <div class="mb-4">
-                    <label for="editAuthor" class="block text-sm font-bold mb-2">Başlık</label>
-                    <input type="text" id="editAuthor" name="editAuthor" class="w-full p-2 border rounded">
-                </div>
-
-
-                <!-- TAGS -->
-                <div class="mb-4">
-                    <label for="editTags" class="block text-sm font-bold mb-2">Başlık</label>
-                    <input type="text"  id="editTags" name="editTags" class="w-full p-2 border rounded">
-                </div>
-
-                 <!-- BUTTON -->
-                 <div class="mb-4">
-                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Güncelle</button>
-                    <button type="button" id="closeEditModal" class="bg-gray-500 text-white px-4 py-2 rounded">Kapat</button>
-                 </div>
-            </form>
-        </div>
-      </div> <!-- end daily Create-->
-
-
-
-    <!-- end codes -->
-    <!-- jquery -->
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-       $(document).ready(function(){
+      $(document).ready(function () {
+        // Create Modal Açma
+        $('#openCreateModal').click(function () {
+          $('#createModal').removeClass('hidden');
+        });
 
-        // Daily List Dynamics List
-        function appendDaily(temp){
-            const dailyHtml =`
-            <div class="bg-white p-4 shadow-md mb-4 rounded temp-item" data-id="${temp._id}">
-                <h2 class="text-xl font-bold">"${temp.header}"</h2>
-                <p>${temp.content}</p>
-                <button class="text-blue-500 edit-btn"  data-id="${temp._id}">Düzenle</button>
-                <button class="text-red-500 delete-btn"  data-id="${temp._id}">Sil</button>
-            </div>
-            `;
-            // Append
-            $('#daily-list').append(dailyHtml);
-        }
+        // Create Modal Kapatma
+        $('#closeCreateModal').click(function () {
+          $('#createModal').addClass('hidden');
+        });
 
-        // Create Modal
-        $('#openCreateModal').click(function(){
-            $('#createModal').removeClass('hidden');
-        }); // end create modal click
+        // Create Formu Gönderme
+        $('#createForm').submit(function (event) {
+          event.preventDefault();
+          const createData = {
+            header: $('#createHeader').val(),
+            content: $('#createContent').val(),
+            author: $('#createAuthor').val(),
+            tags: $('#createTags').val(),
+          };
 
-        // Close Create Modal
-        $('#closeCreateModal').click(function(){
-            $('#createModal').addClass('hidden');
-        }); // end create modal click
+          // AJAX ile form verilerini gönderme
+          $.ajax({
+            url: '/daily/create',
+            type: 'POST',
+            data: createData,
+            success: function () {
+              window.location.reload();
+            },
+          });
+        });
 
-          // Create Form  Submit
-        $('#createForm').submit(function(event){
-            // prevent 
-            event.preventDefault(); 
-            // Create Form    
-            const createHeader = $('#createHeader').val();
-            const createContent = $('#createContent').val();
-            const createAuthor = $('#createAuthor').val();
-            const createTags = $('#createTags').val();
+        // Düzenleme Modalını Açma
+        $(document).on('click', '.edit-btn', function () {
+          const id = $(this).data('id');
 
-            // AJAX
-            $.ajax({
-                url:'/create',
-                type: 'POST',
-                data: {createHeader,createContent,createAuthor,createTags},
-                success: function(){
-                    window.location.reload();
-                }
-            }); //Create Form Ajax
-        }); // end createForm
+          // AJAX ile güncelleme verilerini alma
+          $.ajax({
+            url: `/daily/edit/${id}`,
+            type: 'GET',
+            success: function (data) {
+              $('#editId').val(data._id);
+              $('#editHeader').val(data.header);
+              $('#editContent').val(data.content);
+              $('#editAuthor').val(data.author);
+              $('#editTags').val(data.tags);
+              $('#editModal').removeClass('hidden');
+            },
+          });
+        });
 
-         // Edit Modal Click
-         $('.edit-btn').click(function(){
-            // ID
-            const id= $(this).data('id');
-            // AJAX
-            $.ajax({
-                url:`/edit/${id}`,
-                type: 'GET',
-                success: function(data){
-                    $('#editId').val(data._id);
-                    $('#editHeader').val(data.header);
-                    $('#editContent').val(data._content);
-                    $('#editAuthor').val(data.author);
-                    $('#editTags').val(data.tags);
-                    $('#editModal').removeClass('hidden')
-                }
-            }); //Update Form Ajax
-        }); // end Edit Modal Click
+        // Düzenleme Modalını Kapatma
+        $('#closeEditModal').click(function () {
+          $('#editModal').addClass('hidden');
+        });
 
+        // Düzenleme Formunu Gönderme
+        $('#editForm').submit(function (event) {
+          event.preventDefault();
+          const id = $('#editId').val();
+          const editData = {
+            header: $('#editHeader').val(),
+            content: $('#editContent').val(),
+            author: $('#editAuthor').val(),
+            tags: $('#editTags').val(),
+          };
 
-        //  close Edit Modal
-        $('#closeEditModal').click(function(){
-            $('#editModal').addClass('hidden');
-        }); // end create modal click
+          // AJAX ile form verilerini gönderme
+          $.ajax({
+            url: `/daily/edit/${id}`,
+            type: 'PUT',
+            data: editData,
+            success: function () {
+              window.location.reload();
+            },
+          });
+        });
 
-        // Edit Form Submit
-        $('#editForm').submit(function(event){
-            // prevent 
-            event.preventDefault(); 
-            // Create Form    
-            const editHeader = $('#editHeader').val();
-            const editContent = $('#editContent').val();
-            const editAuthor = $('#editAuthor').val();
-            const editTags = $('#editTags').val();
+        // Silme Modalını Açma
+        $(document).on('click', '.delete-btn', function () {
+          const id = $(this).data('id');
+          $('#deleteId').val(id);
+          $('#deleteModal').removeClass('hidden');
+        });
 
-            // AJAX EDIT
-            $.ajax({
-                url:`/edit/${id}`,
-                type: 'PUT',
-                data: { editHeader, editContent, editAuthor, editTags},
-                success: function(){
-                    window.location.reload();
-                }
-            }); //Edit Form Ajax
-        }); // end editForm
+        // Silme Modalını Kapatma
+        $('#closeDeleteModal').click(function () {
+          $('#deleteModal').addClass('hidden');
+        });
 
+        // Silme İşlemi
+        $('#confirmDelete').click(function () {
+          const id = $('#deleteId').val();
 
-        // Delete Modal Click
-            $('.delete-btn').click(function(){
-            // ID
-            const id= $(this).data('id');
-            // AJAX
-            $.ajax({
-                url:`/delete/${id}`,
-                type: 'DELETE',
-                success: function(data){
-                   window.location.reload();
-                }
-            }); //Delete Form Ajax
-        }); // end Delete Modal Click
-
-       }); // end document ready
-
+          // AJAX ile silme işlemi
+          $.ajax({
+            url: `/daily/delete/${id}`,
+            type: 'POST',
+            success: function () {
+              window.location.reload();
+            },
+          });
+        });
+      });
     </script>
   </body>
 </html>

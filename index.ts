@@ -1,3 +1,6 @@
+console.info("index.js Server 1111 portunda ayağa kalktı");
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 import express, { Application, Request, Response } from 'express';
 import mongoose from 'mongoose';
 import csrf from 'csurf';
@@ -100,6 +103,10 @@ app.use('/daily', dailyRoutes);
 // Sunucu Başlatma
 const port: number = 1111;
 app.listen(port, () => {
-  console.log(`Sunucu ${port} portunda çalışıyor http://localhost:${port}`);
+  console.log(`Sunucu ${port} portunda çalışıyor http://localhost:${port}/daily/list`);
   logger.info(`Sunucu ${port} portunda çalışıyor http://localhost:${port}`);
 });
+
+// http://localhost:1111/daily/list
+// http://localhost:1111/daily/create
+// http://localhost:1111/daily/edit/:id
