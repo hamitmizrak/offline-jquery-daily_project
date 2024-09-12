@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dail Project</title>
+
+    <!-- Tailwind -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- start codes
+    div.container.mx-auto.mt-10>h1.text-3xl.font-bold.mb-4.mt-2{Daily
+    Project}+button.bg-blue-500.text-white.px-4.py-2.rounded{Daily Create} -->
+    <div class="container mx-auto mt-10">
+      <h1 class="text-3xl font-bold mb-4 mt-2">Daily List</h1>
+      <button id="openCreateModal" class="bg-blue-500 text-white px-4 py-2 rounded">
+       New Daily Create
+      </button>
+
+      <!-- DAILY LIST -->
+      <div class="mt-6" id="daily-list">
+        <% dailyList.forEach(function(temp){ %>
+            <div class="bg-white p-4 shadow-md mb-4 rounded" data-id="<% temp._id %>">
+                <h2 class="text-xl font-bold"><%= temp.header%></h2>
+                <p><%= temp.content%></p>
+                <button class="text-blue-500 edit-btn"  data-id="<% temp._id %>">Düzenle</button>
+                <button class="text-red-500 delete-btn"  data-id="<% temp._id %>">Sil</button>
+            </div>
+        <%}) %>
+      </div>
+    </div>  <!-- end container-->
+
+       <!-- DAILY CREATE -->   
+      <div id="createModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+        <div class="bg-white rounded p-6 shadow-md">
+            <h2 class="text-2xl mb-4">Daily Create</h2>
+            <form  id="createForm">
+
+                <!-- HEADER -->
+                <div class="mb-4">
+                    <label for="header" class="block text-sm font-bold mb-2">Başlık</label>
+                    <input type="text" id="header" name="header" class="w-full p-2 border rounded">
+                </div>
+
+
+                <!-- CONTENT -->
+                <div class="mb-4">
+                    <label for="content" class="block text-sm font-bold mb-2">Başlık</label>
+                    <textarea rows="4" id="content" name="content"  class="w-full p-2 border rounded" >
+                </div>
+
+
+                <!-- AUTHOR -->
+                <div class="mb-4">
+                    <label for="author" class="block text-sm font-bold mb-2">Başlık</label>
+                    <input type="text" id="author" name="author" class="w-full p-2 border rounded">
+                </div>
+
+
+                <!-- TAGS -->
+                <div class="mb-4">
+                    <label for="tags" class="block text-sm font-bold mb-2">Başlık</label>
+                    <input type="text"  id="tags" name="tags" class="w-full p-2 border rounded">
+                </div>
+
+                 <!-- BUTTON -->
+                 <div class="mb-4">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Kaydet</button>
+                    <button type="button" id="closeCreateModal"  class="bg-gray-500 text-white px-4 py-2 rounded">Kapat</button>
+                 </div>
+            </form>
+        </div>
+      </div> <!-- end daily Create-->
+
+
+       <!-- DAILY UPDATE -->   
+       <div id="editModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center">
+        <div class="bg-white rounded p-6 shadow-md">
+            <h2 class="text-2xl mb-4">Daily Update</h2>
+            <form  id="editForm">
+
+                <input type="hidden" id="editId">
+
+                <!-- HEADER -->
+                <div class="mb-4">
+                    <label for="header" class="block text-sm font-bold mb-2">Başlık</label>
+                    <input type="text" id="header" name="header" class="w-full p-2 border rounded">
+                </div>
+
+
+                <!-- CONTENT -->
+                <div class="mb-4">
+                    <label for="content" class="block text-sm font-bold mb-2">Başlık</label>
+                    <textarea rows="4" id="content" name="content"  class="w-full p-2 border rounded" >
+                </div>
+
+
+                <!-- AUTHOR -->
+                <div class="mb-4">
+                    <label for="author" class="block text-sm font-bold mb-2">Başlık</label>
+                    <input type="text" id="author" name="author" class="w-full p-2 border rounded">
+                </div>
+
+
+                <!-- TAGS -->
+                <div class="mb-4">
+                    <label for="tags" class="block text-sm font-bold mb-2">Başlık</label>
+                    <input type="text"  id="tags" name="tags" class="w-full p-2 border rounded">
+                </div>
+
+                 <!-- BUTTON -->
+                 <div class="mb-4">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Güncelle</button>
+                    <button type="button" id="closeCreateModal"  class="bg-gray-500 text-white px-4 py-2 rounded">Kapat</button>
+                 </div>
+            </form>
+        </div>
+      </div> <!-- end daily Create-->
+
+
+    
+
+    <!-- end codes -->
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        
+    </script>
+
+  </body>
+</html>
