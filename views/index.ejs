@@ -42,29 +42,29 @@
 
                 <!-- HEADER -->
                 <div class="mb-4">
-                    <label for="header" class="block text-sm font-bold mb-2">Başlık</label>
-                    <input type="text" id="header" name="header" class="w-full p-2 border rounded">
+                    <label for="createHeader" class="block text-sm font-bold mb-2">Başlık</label>
+                    <input type="text" id="createHeader" name="createHeader" class="w-full p-2 border rounded">
                 </div>
 
 
                 <!-- CONTENT -->
                 <div class="mb-4">
-                    <label for="content" class="block text-sm font-bold mb-2">Başlık</label>
-                    <textarea rows="4" id="content" name="content"  class="w-full p-2 border rounded" >
+                    <label for="createContent" class="block text-sm font-bold mb-2">Başlık</label>
+                    <textarea rows="4" id="createContent" name="createContent"  class="w-full p-2 border rounded" >
                 </div>
 
 
                 <!-- AUTHOR -->
                 <div class="mb-4">
-                    <label for="author" class="block text-sm font-bold mb-2">Başlık</label>
-                    <input type="text" id="author" name="author" class="w-full p-2 border rounded">
+                    <label for="createAuthor" class="block text-sm font-bold mb-2">Başlık</label>
+                    <input type="text" id="createAuthor" name="createAuthor" class="w-full p-2 border rounded">
                 </div>
 
 
                 <!-- TAGS -->
                 <div class="mb-4">
-                    <label for="tags" class="block text-sm font-bold mb-2">Başlık</label>
-                    <input type="text"  id="tags" name="tags" class="w-full p-2 border rounded">
+                    <label for="createTags" class="block text-sm font-bold mb-2">Başlık</label>
+                    <input type="text"  id="createTags" name="createTags" class="w-full p-2 border rounded">
                 </div>
 
                  <!-- BUTTON -->
@@ -87,50 +87,157 @@
 
                 <!-- HEADER -->
                 <div class="mb-4">
-                    <label for="header" class="block text-sm font-bold mb-2">Başlık</label>
-                    <input type="text" id="header" name="header" class="w-full p-2 border rounded">
+                    <label for="editHeader" class="block text-sm font-bold mb-2">Başlık</label>
+                    <input type="text" id="editHeader" name="editHeader" class="w-full p-2 border rounded">
                 </div>
 
 
                 <!-- CONTENT -->
                 <div class="mb-4">
-                    <label for="content" class="block text-sm font-bold mb-2">Başlık</label>
-                    <textarea rows="4" id="content" name="content"  class="w-full p-2 border rounded" >
+                    <label for="editContent" class="block text-sm font-bold mb-2">Başlık</label>
+                    <textarea rows="4" id="editContent" name="editContent"  class="w-full p-2 border rounded" >
                 </div>
 
 
                 <!-- AUTHOR -->
                 <div class="mb-4">
-                    <label for="author" class="block text-sm font-bold mb-2">Başlık</label>
-                    <input type="text" id="author" name="author" class="w-full p-2 border rounded">
+                    <label for="editAuthor" class="block text-sm font-bold mb-2">Başlık</label>
+                    <input type="text" id="editAuthor" name="editAuthor" class="w-full p-2 border rounded">
                 </div>
 
 
                 <!-- TAGS -->
                 <div class="mb-4">
-                    <label for="tags" class="block text-sm font-bold mb-2">Başlık</label>
-                    <input type="text"  id="tags" name="tags" class="w-full p-2 border rounded">
+                    <label for="editTags" class="block text-sm font-bold mb-2">Başlık</label>
+                    <input type="text"  id="editTags" name="editTags" class="w-full p-2 border rounded">
                 </div>
 
                  <!-- BUTTON -->
                  <div class="mb-4">
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Güncelle</button>
-                    <button type="button" id="closeCreateModal"  class="bg-gray-500 text-white px-4 py-2 rounded">Kapat</button>
+                    <button type="button" id="closeEditModal" class="bg-gray-500 text-white px-4 py-2 rounded">Kapat</button>
                  </div>
             </form>
         </div>
       </div> <!-- end daily Create-->
 
 
-    
 
     <!-- end codes -->
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
-        
-    </script>
+       $(document).ready(function(){
 
+        // Daily List Dynamics List
+        function appendDaily(temp){
+            const dailyHtml =`
+            <div class="bg-white p-4 shadow-md mb-4 rounded temp-item" data-id="${temp._id}">
+                <h2 class="text-xl font-bold">"${temp.header}"</h2>
+                <p>${temp.content}</p>
+                <button class="text-blue-500 edit-btn"  data-id="${temp._id}">Düzenle</button>
+                <button class="text-red-500 delete-btn"  data-id="${temp._id}">Sil</button>
+            </div>
+            `;
+            // Append
+            $('#daily-list').append(dailyHtml);
+        }
+
+        // Create Modal
+        $('#openCreateModal').click(function(){
+            $('#createModal').removeClass('hidden');
+        }); // end create modal click
+
+        // Close Create Modal
+        $('#closeCreateModal').click(function(){
+            $('#createModal').addClass('hidden');
+        }); // end create modal click
+
+          // Create Form  Submit
+        $('#createForm').submit(function(event){
+            // prevent 
+            event.preventDefault(); 
+            // Create Form    
+            const createHeader = $('#createHeader').val();
+            const createContent = $('#createContent').val();
+            const createAuthor = $('#createAuthor').val();
+            const createTags = $('#createTags').val();
+
+            // AJAX
+            $.ajax({
+                url:'/create',
+                type: 'POST',
+                data: {createHeader,createContent,createAuthor,createTags},
+                success: function(){
+                    window.location.reload();
+                }
+            }); //Create Form Ajax
+        }); // end createForm
+
+         // Edit Modal Click
+         $('.edit-btn').click(function(){
+            // ID
+            const id= $(this).data('id');
+            // AJAX
+            $.ajax({
+                url:`/edit/${id}`,
+                type: 'GET',
+                success: function(data){
+                    $('#editId').val(data._id);
+                    $('#editHeader').val(data.header);
+                    $('#editContent').val(data._content);
+                    $('#editAuthor').val(data.author);
+                    $('#editTags').val(data.tags);
+                    $('#editModal').removeClass('hidden')
+                }
+            }); //Update Form Ajax
+        }); // end Edit Modal Click
+
+
+        //  close Edit Modal
+        $('#closeEditModal').click(function(){
+            $('#editModal').addClass('hidden');
+        }); // end create modal click
+
+        // Edit Form Submit
+        $('#editForm').submit(function(event){
+            // prevent 
+            event.preventDefault(); 
+            // Create Form    
+            const editHeader = $('#editHeader').val();
+            const editContent = $('#editContent').val();
+            const editAuthor = $('#editAuthor').val();
+            const editTags = $('#editTags').val();
+
+            // AJAX EDIT
+            $.ajax({
+                url:`/edit/${id}`,
+                type: 'PUT',
+                data: { editHeader, editContent, editAuthor, editTags},
+                success: function(){
+                    window.location.reload();
+                }
+            }); //Edit Form Ajax
+        }); // end editForm
+
+
+        // Delete Modal Click
+            $('.delete-btn').click(function(){
+            // ID
+            const id= $(this).data('id');
+            // AJAX
+            $.ajax({
+                url:`/delete/${id}`,
+                type: 'DELETE',
+                success: function(data){
+                   window.location.reload();
+                }
+            }); //Delete Form Ajax
+        }); // end Delete Modal Click
+
+       }); // end document ready
+
+    </script>
   </body>
 </html>
