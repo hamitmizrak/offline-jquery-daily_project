@@ -29,8 +29,16 @@ exports.postCreateDaily = postCreateDaily;
 //////////////////////////////////////////////////////////////////////////
 // Daily Update Page
 const getUpdateDaily = async (request, response) => {
-    const dailyUpdate = await mongoose_daily_models_js_1.default.findById(request.params.id);
-    response.render("edit", { dailyUpdate });
+    try {
+        const daily = await mongoose_daily_models_js_1.default.findById(request.params.id);
+        if (!daily) {
+            return response.status(404).send("Günlük kaydı bulunamadı");
+        }
+        response.render("edit", { daily });
+    }
+    catch (err) {
+        response.status(500).send("Sunucu hatası");
+    }
 };
 exports.getUpdateDaily = getUpdateDaily;
 // Daily Update Page AJAX
