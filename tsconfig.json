@@ -6,7 +6,8 @@
       "target": "esnext",
       "strict": true,
       "skipLibCheck": true,
-      "forceConsistentCasingInFileNames": true
+      "forceConsistentCasingInFileNames": true,
+      "outDir": "./dist"
     }
   }
   

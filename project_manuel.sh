@@ -6,10 +6,16 @@ chmod +x project_npm_local.sh
 chmod +x project_docker.sh
 chmod +x project_manuel.sh
 
-# Typescript comppiler
+# Typescript compiler
 tsc 
 #nodemon --exec ts-node index.ts
-node ./index.js
+#node ./index.js
+
+# Eğer tsconfig.json içinde => "outDir": "./dist" yazarsam
+#node ./dist/index.js
+nodemon --exec ts-node ./dist/index.js
+
+
 
 # 1.YOL
 # node index.js
