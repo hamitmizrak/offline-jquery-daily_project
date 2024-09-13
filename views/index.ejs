@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Project</title>
+
+    <!-- Tailwind CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="ml-9 mr-9">
+    <div class="container mx-auto mt-10">
+      <h1 class="text-3xl text-hmPrimary font-bold mb-4 mt-2">Daily List</h1>
+      <button
+        id="openCreateModal"
+        class="bg-hmPrimary text-white px-4 py-2 rounded"
+      >
+        New Daily Create
+      </button>
+
+      <!-- DAILY LIST -->
+      <div class="mt-6" id="daily-list">
+        <table
+          class="min-w-full bg-white text-hmPrimary border border-gray-200"
+        >
+          <thead>
+            <tr>
+              <th class="py-2 px-4 border-b border-gray-200 text-left">
+                Başlık
+              </th>
+              <th class="py-2 px-4 border-b border-gray-200 text-left">
+                İçerik
+              </th>
+              <th class="py-2 px-4 border-b border-gray-200 text-left">
+                Yazar
+              </th>
+              <th class="py-2 px-4 border-b border-gray-200 text-left">
+                Etiketler
+              </th>
+              <th class="py-2 px-4 border-b border-gray-200 text-left">
+                Durum
+              </th>
+              <th class="py-2 px-4 border-b border-gray-200 text-left">
+                İşlemler
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% dailyList.forEach(function(temp){ %>
+            <tr data-id="<%= temp._id %>" class="hover:bg-gray-100">
+              <td class="py-2 px-4 border-b border-gray-200">
+                <%= temp.header %>
+              </td>
+              <td class="py-2 px-4 border-b border-gray-200">
+                <%= temp.content %>
+              </td>
+              <td class="py-2 px-4 border-b border-gray-200">
+                <%= temp.author %>
+              </td>
+              <td class="py-2 px-4 border-b border-gray-200">
+                <%= temp.tags %>
+              </td>
+              <td class="py-2 px-4 border-b border-gray-200">
+                <%= temp.status %>
+              </td>
+              <td class="py-2 px-4 border-b border-gray-200 flex space-x-2">
+                <a
+                  href="/daily/edit/<%= temp._id %>"
+                  class="bg-blue-500 text-white px-4 py-2 rounded edit-btn"
+                  data-id="<%= temp._id %>"
+                >
+                  Düzenle
+                </a>
+                <button
+                  class="bg-red-500 text-white px-4 py-2 rounded delete-btn"
+                  data-id="<%= temp._id %>"
+                >
+                  Sil
+                </button>
+              </td>
+            </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- end container-->
+
+    <!-- DAILY CREATE MODAL -->
+    <div
+      id="createModal"
+      class="hidden fixed inset-0 bg-gray-800 text-hmPrimary bg-opacity-75 flex items-center justify-center"
+    >
+      <div class="bg-white rounded p-6 shadow-md w-3/4 max-w-4xl">
+        <h2 class="text-2xl mb-4">Daily Create</h2>
+
+        <form id="createForm">
+
+          <!-- HEADER -->
+          <div class="mb-4">
+            <label for="createHeader" class="block text-sm text-hmPrimary font-bold mb-2"
+              >Başlık</label
+            >
+            <input
+              type="text"
+              id="createHeader"
+              name="header"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+
+          <!-- CONTENT -->
+          <div class="mb-4">
+            <label for="createContent" class="block text-sm font-bold mb-2 text-hmPrimary"
+              >İçerik</label
+            >
+            <textarea
+              rows="4"
+              id="createContent"
+              name="content"
+              class="w-full p-2 border rounded"
+              required
+            ></textarea>
+          </div>
+
+          <!-- AUTHOR -->
+          <div class="mb-4">
+            <label for="createAuthor" class="block text-sm font-bold mb-2 text-hmPrimary"
+              >Yazar</label
+            >
+            <input
+              type="text"
+              id="createAuthor"
+              name="author"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+
+          <!-- TAGS -->
+          <div class="mb-4">
+            <label for="createTags" class="block text-sm font-bold mb-2 text-hmPrimary"
+              >Etiketler</label
+            >
+            <input
+              type="text"
+              id="createTags"
+              name="tags"
+              class="w-full p-2 border rounded"
+              required
+            />
+          </div>
+
+          <!-- BUTTONS -->
+          <div class="mb-4">
+            <button
+              type="submit"
+              class="bg-blue-500 text-white px-4 py-2 rounded"
+            >
+              Kaydet
+            </button>
+            <button
+              type="button"
+              id="closeCreateModal"
+              class="bg-gray-500 text-white px-4 py-2 rounded"
+            >
+              Kapat
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- DELETE CONFIRMATION MODAL -->
+    <div
+      id="deleteModal"
+      class="hidden fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center"
+    >
+      <div class="bg-white rounded p-6 shadow-md">
+        <h2 class="text-2xl mb-4">Silmek istediğinize emin misiniz?</h2>
+        <input type="hidden" id="deleteId" />
+        <button
+          id="confirmDelete"
+          class="bg-red-500 text-white px-4 py-2 rounded"
+        >
+          Sil
+        </button>
+        <button
+          id="closeDeleteModal"
+          class="bg-gray-500 text-white px-4 py-2 rounded"
+        >
+          Kapat
+        </button>
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+      $(document).ready(function () {
+        // Create Modal Açma
+        $("#openCreateModal").click(function () {
+          $("#createModal").removeClass("hidden");
+        });
+
+        // Create Modal Kapatma
+        $("#closeCreateModal").click(function () {
+          $("#createModal").addClass("hidden");
+        });
+
+        // Create Formu Gönderme
+        $("#createForm").submit(function (event) {
+          event.preventDefault();
+          const createData = {
+            header: $("#createHeader").val(),
+            content: $("#createContent").val(),
+            author: $("#createAuthor").val(),
+            tags: $("#createTags").val(),
+          };
+
+          // AJAX ile form verilerini gönderme
+          $.ajax({
+            url: "/daily/create",
+            type: "POST",
+            data: createData,
+            success: function () {
+              window.location.reload();
+            },
+          });
+        });
+
+        // Düzenleme Modalını Açma
+        $(document).on("click", ".edit-btn", function () {
+          const id = $(this).data("id");
+
+          // AJAX ile güncelleme verilerini alma
+          $.ajax({
+            url: `/daily/edit/${id}`,
+            type: "GET",
+            success: function (data) {
+              $("#editId").val(data._id);
+              $("#editHeader").val(data.header);
+              $("#editContent").val(data.content);
+              $("#editAuthor").val(data.author);
+              $("#editTags").val(data.tags);
+              $("#editModal").removeClass("hidden");
+            },
+          });
+        });
+
+        // Düzenleme Modalını Kapatma
+        $("#closeEditModal").click(function () {
+          $("#editModal").addClass("hidden");
+        });
+
+        // Düzenleme Formunu Gönderme
+        $("#editForm").submit(function (event) {
+          event.preventDefault();
+          const id = $("#editId").val();
+          const editData = {
+            header: $("#editHeader").val(),
+            content: $("#editContent").val(),
+            author: $("#editAuthor").val(),
+            tags: $("#editTags").val(),
+          };
+
+          // AJAX ile form verilerini gönderme
+          $.ajax({
+            url: `/daily/edit/${id}`,
+            type: "PUT",
+            data: editData,
+            success: function () {
+              window.location.reload();
+            },
+          });
+        });
+
+        // Silme Modalını Açma
+        $(document).on("click", ".delete-btn", function () {
+          const id = $(this).data("id");
+          $("#deleteId").val(id);
+          $("#deleteModal").removeClass("hidden");
+        });
+
+        // Silme Modalını Kapatma
+        $("#closeDeleteModal").click(function () {
+          $("#deleteModal").addClass("hidden");
+        });
+
+        // Silme İşlemi
+        $("#confirmDelete").click(function () {
+          const id = $("#deleteId").val();
+
+          // AJAX ile silme işlemi
+          $.ajax({
+            url: `/daily/delete/${id}`,
+            type: "POST",
+            success: function () {
+              window.location.reload();
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

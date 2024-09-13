@@ -2,9 +2,10 @@
 
 # Not: Eğer linux üzerinden çalıştıracaksak chmod ile çalıştırarak yetkilendirelim
 # x: eXecute
-chmod +x npm_local.sh
+chmod +x project_npm_local.sh
 chmod +x project_docker.sh
 chmod +x project_manuel.sh
+
 
 # Docker Compose
 # docker-compose up 

@@ -2,3 +2,6 @@
 
 # env,mongoose_daily_models_ts
 node_modules
+
+# Log
+*.log

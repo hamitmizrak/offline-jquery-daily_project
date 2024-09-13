@@ -1,0 +1,149 @@
+{
+    "compilerOptions": {
+      "esModuleInterop": true,
+      "moduleResolution": "node",
+      "module": "commonjs",  
+      "target": "esnext",
+      "strict": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "outDir": "./dist"
+    }
+  }
+
+/* 
+Her bir özelliği ayarı liste halinde açıklayayım:
+
+1. **`esModuleInterop: true`**
+   - **Açıklama:** ECMAScript modülleri ile CommonJS modülleri arasında uyumluluk sağlar.
+   - **Detay:** `import` ve `require` kullanımlarını sorunsuz hale getirir. 
+   JavaScript modüllerini daha doğal bir şekilde TypeScript'e dahil etmenizi sağlar.
+
+2. **`moduleResolution: "node"`**
+   - **Açıklama:** Modül çözümleme yöntemi olarak Node.js'in modül çözümleme stratejisini kullanır.
+   - **Detay:** Modülleri `node_modules` klasöründen yükler ve Node.js tarzında modül yollarını çözümleyerek dosyaları bulur.
+
+3. **`module: "commonjs"`**
+   - **Açıklama:** Modül sistemi olarak CommonJS kullanır.
+   - **Detay:** Node.js tarafından kullanılan `require()` ve `module.exports` yapısını üretir.
+
+4. **`target: "esnext"`**
+   - **Açıklama:** Derlenen kodun hedefleyeceği ECMAScript sürümünü belirler.
+   - **Detay:** `"esnext"` seçildiğinde en güncel ECMAScript özellikleri kullanılabilir. Yani modern JavaScript kodu üretir.
+
+5. **`strict: true`**
+   - **Açıklama:** TypeScript'in katı tip kontrolü yapmasını sağlar.
+   - **Detay:** Bu ayar etkinleştirildiğinde, kodda daha fazla hata tespiti yapılır ve tip hatalarını daha erken fark etmenizi sağlar.
+
+6. **`skipLibCheck: true`**
+   - **Açıklama:** Kütüphane dosyalarındaki (örneğin `node_modules` içindekiler) tip kontrolünü atlar.
+   - **Detay:** Derleme sürecini hızlandırır, kütüphanelerdeki tip hatalarını kontrol etmez.
+
+7. **`forceConsistentCasingInFileNames: true`**
+   - **Açıklama:** Dosya adlarında büyük/küçük harf tutarlılığını zorunlu kılar.(case sensitivity)
+   - **Detay:** Özellikle büyük/küçük harfe duyarlı dosya sistemlerinde (Linux gibi) hatalı dosya yolu kullanımlarını önler.
+
+8. **`outDir: "./dist"`**
+   - **Açıklama:** Derlenmiş dosyaların kaydedileceği klasörü belirtir.
+   - **Detay:** Derleme işlemi tamamlandığında tüm JavaScript dosyaları `./dist` klasörüne kaydedilir.
+
+   Derleme içinde: tsc => typescript compiler
+
+Bu şekilde, her bir ayar TypeScript derleme sürecinde belirli bir işlevi yerine getirir ve projeyi derlerken nasıl bir yol izleneceğini belirler.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+/*
+Bu TypeScript yapılandırma dosyasındaki (`tsconfig.json`) `compilerOptions` bölümü, TypeScript derleyicisinin (compiler) nasıl çalışması gerektiğini tanımlayan ayarları içerir. 
+Şimdi her bir seçeneği ayrıntılı olarak inceleyelim:
+
+### 1. `esModuleInterop: true`
+Bu seçenek, ECMAScript modülleri ile CommonJS modülleri arasında uyumluluk sağlar. TypeScript, JavaScript'teki `import` ve `require` arasında daha iyi bir uyum sağlamak için bu ayarı kullanır. Örneğin, `esModuleInterop` `true` olduğunda, aşağıdaki gibi CommonJS modülleri `import` ile kullanılabilir hale gelir:
+
+**Örnek:**
+```typescript
+import express from 'express';
+```
+
+Bu ayar `false` olsaydı, yukarıdaki modül yüklemesi şu şekilde olurdu:
+```typescript
+import * as express from 'express';
+```
+
+Yani `esModuleInterop` `true` olduğunda, JavaScript modülleri TypeScript'te daha sorunsuz bir şekilde kullanılabilir.
+
+### 2. `moduleResolution: "node"`
+Bu ayar, TypeScript'in modülleri çözümleme şekliyle ilgilidir. `"node"` değeri, Node.js modül çözümleme mantığını kullanacağını belirtir. Node.js'de, modüller `node_modules` klasöründen veya dosya yollarından yüklenir. Bu, özellikle Node.js projelerinde modüllerin sorunsuz bir şekilde yüklenmesi için önemlidir.
+
+**Örnek:**
+```typescript
+import { myFunction } from './myModule';
+// ./myModule.ts veya ./myModule/index.ts olarak dosya arar
+```
+
+### 3. `module: "commonjs"`
+Bu, TypeScript'in derlenmiş çıktısında hangi modül sisteminin kullanılacağını belirtir. `"commonjs"`, Node.js’in kullandığı modül sistemi olan CommonJS modül sistemini seçer. Node.js, `require()` ve `module.exports` gibi CommonJS yapısını kullanır.
+
+**Örnek:**
+```typescript
+export function myFunction() {
+  return "Hello!";
+}
+// Bu, derlendiğinde CommonJS sistemi ile aşağıdaki gibi olur:
+module.exports = {
+  myFunction: myFunction
+};
+```
+
+### 4. `target: "esnext"`
+Bu, TypeScript’in çıktısının hangi ECMAScript sürümüne uygun olması gerektiğini belirtir. `"esnext"`, en güncel ECMAScript özelliklerini destekleyen bir hedefi seçer. Yani, en yeni JavaScript sürümüne göre kod üretir. Bu ayar sayesinde modern JavaScript özelliklerini doğrudan kullanabilirsiniz (örneğin, async/await, optional chaining).
+
+**Örnek:**
+```typescript
+async function myAsyncFunction() {
+  await someAsyncTask();
+}
+```
+
+### 5. `strict: true`
+Bu ayar, TypeScript derleyicisini "katı" modda çalıştırır. Katı mod, TypeScript'in daha fazla kontrol yapmasını sağlar ve hata yapma olasılığını azaltır. `strict` modu, aşağıdaki tüm katı kontrolleri etkinleştirir:
+- `noImplicitAny`: Tipi belirlenmemiş değişkenlere `any` tipi atamasını engeller.
+- `strictNullChecks`: `null` ve `undefined` değerlerinin yanlış kullanımlarını engeller.
+- `strictBindCallApply`: `bind`, `call` ve `apply` fonksiyonlarının tip kontrollerini katılaştırır.
+
+**Örnek:**
+```typescript
+let myVar; // Hata verir çünkü `myVar` tipi belirtilmemiştir.
+```
+
+### 6. `skipLibCheck: true`
+Bu ayar, TypeScript'in projedeki kütüphane dosyalarını (genellikle `node_modules` içinde bulunur) tip kontrolüne tabi tutmasını engeller. Bu, derleme süresini hızlandırır ve büyük projelerde performans kazandırır.
+
+**Örnek:**
+```typescript
+// node_modules içindeki tip hataları göz ardı edilir
+```
+
+### 7. `forceConsistentCasingInFileNames: true`
+Bu ayar, dosya adlarındaki büyük/küçük harf farklılıklarını zorunlu olarak tutarlı hale getirir. Bu sayede, bir dosyayı `import` ederken büyük-küçük harf duyarlılığı olan dosya sistemlerinde (örneğin Linux) hata yapma riski azaltılır.
+
+**Örnek:**
+```typescript
+import { myFunction } from './MyModule'; // Bu, eğer dosya gerçekten 'MyModule.ts' olarak adlandırılmadıysa hata verir.
+```
+
+### 8. `outDir: "./dist"`
+Bu ayar, derlenmiş JavaScript dosyalarının hangi klasöre çıkartılacağını belirtir. `"./dist"` değeri, derleme sonucu oluşan dosyaların `dist` klasörüne kaydedileceğini söyler.
+
+**Örnek:**
+```bash
+# Derleme sonrası çıkış klasörü:
+dist/
+  |- myModule.js
+```
+
+### Genel Özet:
+Bu yapılandırma, TypeScript projelerinde Node.js modül çözümleme ve CommonJS modül sistemine göre kod yazmanızı sağlar. 
+Kod en son ECMAScript standartlarına göre derlenir ve katı tip denetimi sayesinde hatalar erken aşamada tespit edilir. 
+Ayrıca, derlenmiş JavaScript dosyaları `dist` klasörüne kaydedilir.
+*/

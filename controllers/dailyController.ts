@@ -1,5 +1,5 @@
 // Import
-import Daily from "../models/mongoose_daily_models";
+import Daily from "../models/mongoose_daily_models.js";
 
 // Request, Response (Express)
 import { Request, Response } from "express";
@@ -27,8 +27,15 @@ export const postCreateDaily = async (request: Request, response: Response) => {
 //////////////////////////////////////////////////////////////////////////
 // Daily Update Page
 export const getUpdateDaily = async (request: Request, response: Response) => {
-  const dailyUpdate = await Daily.findById(request.params.id);
-  response.render("edit", { dailyUpdate });
+  try {
+  const daily  = await Daily.findById(request.params.id);
+  if (!daily ) {
+    return response.status(404).send("Günlük kaydı bulunamadı");
+  }
+  response.render("edit", { daily  });
+} catch (err) {
+  response.status(500).send("Sunucu hatası");
+}
 };
 
 // Daily Update Page AJAX

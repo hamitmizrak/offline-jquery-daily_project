@@ -2,31 +2,47 @@
 
 # Not: Eğer linux üzerinden çalıştıracaksak chmod ile çalıştırarak yetkilendirelim
 # x: eXecute
-chmod +x npm_local.sh
+chmod +x project_npm_local.sh
 chmod +x project_docker.sh
 chmod +x project_manuel.sh
 
-
 # 1.YOL
-node index.ts
+# Typescript compiler
+#tsc 
+##node ./dist/index.js
+#nodemon --exec ts-node ./dist/index.js
+##nodemon --exec ts-node index.ts
+##node ./index.js
+## Eğer tsconfig.json içinde => "outDir": "./dist" yazarsam
+
 
 # 2.YOL
-# & = anlamı
-# node index.ts komutunun çalıştıktan sonra terminali "bloklayarak" (kilitleyerek) diğer komutlara geçişi engellemesidir.
-# Yani, node index.ts çalıştığında terminal bu süreçte bekler ve docker-compose up -d komutunu çalıştırmaz.
-# node index.ts &
+npm install
+npm run build  // tsc
+npm run start  // nodemon --exec ts-node ./dist/index.js
+
+
 
 # 3.YOL
-#npm start
+# node index.js
 
 # 4.YOL
+# & = anlamı
+# node index.js komutunun çalıştıktan sonra terminali "bloklayarak" (kilitleyerek) diğer komutlara geçişi engellemesidir.
+# Yani, node index.js çalıştığında terminal bu süreçte bekler ve docker-compose up -d komutunu çalıştırmaz.
+# node index.js &
+
+# 5.YOL
+#npm start
+
+# 6.YOL
 # Eğer biz bir script yazarsak run yazmak zorundayız.
 # npm run start
 
-# 5.YOL Nodemon ile ayağa kaldır
+# 7.YOL Nodemon ile ayağa kaldır
 # node monitoring
 # npm run nodemon
 
-# 6.YOL Nodemon ile ayağa kaldır
+# 8.YOL Nodemon ile ayağa kaldır
 # q: terminal çıktısındaki çok detayı gösterme
 #npm run nodemon_q

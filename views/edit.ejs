@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Update</title>
+
+    <!-- Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="container mx-auto mt-10">
+      <h1 class="text-2xl font-bold mb-4">Günlüğü Düzenle</h1>
+      <form action="/daily/edit/<%= daily._id %>" method="POST">
+        <!-- HEADER -->
+        <div class="mb-4">
+          <label for="header" class="text-hmPrimary block text-sm font-bold mb-2">Başlık</label>
+          <input
+            type="text"
+            id="header"
+            name="header"
+            value="<%= daily.header %>"
+            class="w-full p-2 border rounded"
+            required
+          />
+        </div>
+
+        <!-- CONTENT -->
+        <div class="mb-4">
+          <label for="content" class="text-hmPrimary block text-sm font-bold mb-2">İçerik</label>
+          <textarea
+            id="content"
+            name="content"
+            rows="4"
+            class="w-full p-2 border rounded"
+            required
+          ><%= daily.content %></textarea>
+        </div>
+
+        <!-- AUTHOR -->
+        <div class="mb-4">
+          <label for="author" class="text-hmPrimary block text-sm font-bold mb-2">Yazar</label>
+          <input
+            type="text"
+            id="author"
+            name="author"
+            value="<%= daily.author %>"
+            class="w-full p-2 border rounded"
+            required
+          />
+        </div>
+
+        <!-- TAGS -->
+        <div class="mb-4">
+          <label for="tags" class="text-hmPrimary block text-sm font-bold mb-2">Etiketler</label>
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            value="<%= daily.tags %>"
+            class="w-full p-2 border rounded"
+            required
+          />
+        </div>
+
+        <!-- BUTTONS -->
+        <div class="mb-4">
+          <button type="submit" class="bg-hmPrimary text-white px-4 py-2 rounded">Güncelle</button>
+          <a href="/daily/list" class="bg-hmDanger text-white px-4 py-2 rounded">İptal</a>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
