@@ -47,7 +47,7 @@ const DailyPostSchema = new Schema(
     // Tags (Etiketler): Blog gönderilerine etiketler ekleyerek onları kategorize edebilir ve aramalarda bu etiketleri kullanabilirsiniz.
     tags: {
       type: [String],
-      validate: function (v: string) {
+      validate: function (v) {
         return Array.isArray(v) && v.length > 0;
       },
       message: "En az bir etiket girmelisiniz",

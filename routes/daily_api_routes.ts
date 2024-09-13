@@ -1,5 +1,5 @@
 // İmport Router
-import { Router } from 'express';
+import { Router } from "express";
 
 // Daily Controller
 import {
@@ -9,7 +9,7 @@ import {
   getUpdateDaily,
   postUpdateDaily,
   postDeleteDaily,
-} from "../controllers/dailyController.js";
+} from "../controllers/dailyController";
 
 // Router
 const router = Router();
@@ -33,4 +33,4 @@ router.post("/edit/:id", postUpdateDaily);
 router.post("/delete/:id", postDeleteDaily);
 
 // EXPORT ROUTER
-export default router;  // Default export
+export default router;
