@@ -3,9 +3,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postDeleteDaily = exports.postUpdateDaily = exports.getUpdateDaily = exports.postCreateDaily = exports.getCreateDaily = exports.getListDaily = void 0;
+exports.postDeleteDaily = exports.postUpdateDaily = exports.getUpdateDaily = exports.postCreateDaily = exports.getCreateDaily = exports.getListDaily = exports.handleError = void 0;
 // Import
 const mongoose_daily_models_js_1 = __importDefault(require("../models/mongoose_daily_models.js"));
+//////////////////////////////////////////////////////////////////////////
+// DRY Principle (Don't Repeat Yourself)
+const handleError = (err, response, message) => {
+    console.error(err);
+    response.status(400).json({ message });
+};
+exports.handleError = handleError;
 //////////////////////////////////////////////////////////////////////////
 // Daily List
 const getListDaily = async (request, response) => {
@@ -21,9 +28,15 @@ const getCreateDaily = async (request, response) => {
 exports.getCreateDaily = getCreateDaily;
 // Daily Create Page AJAX
 const postCreateDaily = async (request, response) => {
-    const { header, content, author, tags } = request.body;
-    const newDaily = await new mongoose_daily_models_js_1.default({ header, content, author, tags }).save();
-    response.json(newDaily);
+    try {
+        const { header, content, author, tags } = request.body;
+        const newDaily = await new mongoose_daily_models_js_1.default({ header, content, author, tags }).save();
+        console.warn(newDaily);
+        response.json(newDaily);
+    }
+    catch (err) {
+        (0, exports.handleError)(err, response, "MongoDB'ye  Eklenemedi");
+    }
 };
 exports.postCreateDaily = postCreateDaily;
 //////////////////////////////////////////////////////////////////////////
@@ -43,20 +56,36 @@ const getUpdateDaily = async (request, response) => {
 exports.getUpdateDaily = getUpdateDaily;
 // Daily Update Page AJAX
 const postUpdateDaily = async (request, response) => {
-    const { header, content, author, tags } = request.body;
-    await mongoose_daily_models_js_1.default.findByIdAndUpdate(request.params.id, {
-        header,
-        content,
-        author,
-        tags,
-    });
-    response.json({ success: true });
+    try {
+        const id = request.params.id;
+        const { header, content, author, tags } = request.body;
+        const update = await mongoose_daily_models_js_1.default.findByIdAndUpdate(id, {
+            header,
+            content,
+            author,
+            tags,
+        });
+        //  response.json({ success: true }); //Bu güncelleme sonrasında ekranda göstersin
+        console.warn(update);
+        response.redirect("/");
+    }
+    catch (err) {
+        (0, exports.handleError)(err, response, "MongoDB'ye  Eklenemedi");
+    }
 };
 exports.postUpdateDaily = postUpdateDaily;
 //////////////////////////////////////////////////////////////////////////
 // Daily Delete
 const postDeleteDaily = async (request, response) => {
-    await mongoose_daily_models_js_1.default.findByIdAndDelete(request.params.id);
-    response.json({ success: true });
+    try {
+        const id = request.params.id;
+        const deleteFindById = await mongoose_daily_models_js_1.default.findByIdAndDelete(id);
+        console.warn(deleteFindById);
+        //response.json({ success: true });
+        response.status(200).json({ message: `${id} nolu veri silindi` });
+    }
+    catch (err) {
+        (0, exports.handleError)(err, response, "MongoDB'ye  Eklenemedi");
+    }
 };
 exports.postDeleteDaily = postDeleteDaily;

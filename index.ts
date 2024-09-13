@@ -1,7 +1,7 @@
 console.info("index.js Server portunda ayağa kalkt.");
-// http://localhost:1111/daily/list
-// http://localhost:1111/daily/create
-// http://localhost:1111/daily/edit/:id
+// http://localhost:1111/
+// http://localhost:1111/create
+// http://localhost:1111/edit/:id
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
@@ -157,7 +157,8 @@ if (process.env.NODE_ENV !== "production") {
 // 1.YOL (LOCALHOST)
 // MongoDB Bağlantısı
 // NOT: mongodb docker-compose servis adı
-const databaseLocalDockerUrl: string = "mongodb://mongodb:27017/daily";
+//const databaseLocalDockerUrl: string = "mongodb://mongodb:27017/daily";
+const databaseLocalDockerUrl: string = "mongodb://localhost:27017/daily";
 
 // MongoDB Cloud (username,password)
 // 2.YOL
@@ -339,7 +340,8 @@ app.set("view engine", "ejs");
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Router (Rotalar)
 // Rotaları ayarla
-app.use("/daily", dailyRoutes);
+//app.use("/daily", dailyRoutes);
+app.use("/", dailyRoutes);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Windowsta 1111 portunu kapatmak
@@ -357,6 +359,7 @@ app.use("/daily", dailyRoutes);
   
   */
 
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // 404 Hata sayfası
@@ -368,12 +371,10 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 // Sunucu Başlatma
 const port: number = 1111;
 app.listen(port, () => {
-  console.log(
-    `Sunucu ${port} portunda çalışıyor http://localhost:${port}/daily/list`
-  );
-  logger.info(`http://localhost:1111/daily/list Sunucu ${port} portunda çalışıyor http://localhost:${port}`); //logger: Winston
+  //console.log( `Sunucu ${port} portunda çalışıyor http://localhost:${port}`);
+  logger.info(`http://localhost:1111/ Sunucu ${port} portunda çalışıyor http://localhost:${port}`); //logger: Winston
 });
 
-// http://localhost:1111/daily/list
-// http://localhost:1111/daily/create
-// http://localhost:1111/daily/edit/:id
+// http://localhost:1111/
+// http://localhost:1111/create
+// http://localhost:1111/edit/:id

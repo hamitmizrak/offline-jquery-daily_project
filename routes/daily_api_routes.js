@@ -8,7 +8,7 @@ const dailyController_js_1 = require("../controllers/dailyController.js");
 const router = (0, express_1.Router)();
 ///////////////////////////////////////////////////////////////////
 // LIST (DAILY)
-router.get("/list", dailyController_js_1.getListDaily);
+router.get("/", dailyController_js_1.getListDaily);
 ///////////////////////////////////////////////////////////////////
 // CREATE (DAILY)
 router.get("/create", dailyController_js_1.getCreateDaily);

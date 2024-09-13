@@ -16,7 +16,7 @@
       <h1 class="text-3xl text-hmPrimary font-bold mb-4 mt-2">Daily List</h1>
       <button
         id="openCreateModal"
-        class=" text-hmPrimary px-4 py-2 rounded"
+        class=" bg-blue-700 text-white px-4 py-2 rounded"
       >
         New Daily Create
       </button>
@@ -68,7 +68,7 @@
               </td>
               <td class="py-2 px-4 border-b border-gray-200 flex space-x-2">
                 <a
-                  href="/daily/edit/<%= temp._id %>"
+                  href="/edit/<%= temp._id %>"
                   class="bg-blue-500 text-white px-4 py-2 rounded edit-btn"
                   data-id="<%= temp._id %>"
                 >
@@ -225,7 +225,7 @@
 
           // AJAX ile form verilerini gönderme
           $.ajax({
-            url: "/daily/create",
+            url: "/create",
             type: "POST",
             data: createData,
             success: function () {
@@ -240,7 +240,7 @@
 
           // AJAX ile güncelleme verilerini alma
           $.ajax({
-            url: `/daily/edit/${id}`,
+            url: `/edit/${id}`,
             type: "GET",
             success: function (data) {
               $("#editId").val(data._id);
@@ -271,7 +271,7 @@
 
           // AJAX ile form verilerini gönderme
           $.ajax({
-            url: `/daily/edit/${id}`,
+            url: `/edit/${id}`,
             type: "PUT",
             data: editData,
             success: function () {
@@ -298,7 +298,7 @@
 
           // AJAX ile silme işlemi
           $.ajax({
-            url: `/daily/delete/${id}`,
+            url: `/delete/${id}`,
             type: "POST",
             success: function () {
               window.location.reload();

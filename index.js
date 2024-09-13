@@ -27,9 +27,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 console.info("index.js Server portunda ayağa kalkt.");
-// http://localhost:1111/daily/list
-// http://localhost:1111/daily/create
-// http://localhost:1111/daily/edit/:id
+// http://localhost:1111/
+// http://localhost:1111/create
+// http://localhost:1111/edit/:id
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*
@@ -160,7 +160,8 @@ if (process.env.NODE_ENV !== "production") {
 // 1.YOL (LOCALHOST)
 // MongoDB Bağlantısı
 // NOT: mongodb docker-compose servis adı
-const databaseLocalDockerUrl = "mongodb://mongodb:27017/daily";
+//const databaseLocalDockerUrl: string = "mongodb://mongodb:27017/daily";
+const databaseLocalDockerUrl = "mongodb://localhost:27017/daily";
 // MongoDB Cloud (username,password)
 // 2.YOL
 // Localhostta MongoDB yüklüyse)
@@ -320,7 +321,8 @@ app.set("view engine", "ejs");
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Router (Rotalar)
 // Rotaları ayarla
-app.use("/daily", daily_api_routes_js_1.default);
+//app.use("/daily", dailyRoutes);
+app.use("/", daily_api_routes_js_1.default);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Windowsta 1111 portunu kapatmak
 /*
@@ -345,9 +347,9 @@ app.use((req, res, next) => {
 // Sunucu Başlatma
 const port = 1111;
 app.listen(port, () => {
-    console.log(`Sunucu ${port} portunda çalışıyor http://localhost:${port}/daily/list`);
-    logger.info(`http://localhost:1111/daily/list Sunucu ${port} portunda çalışıyor http://localhost:${port}`); //logger: Winston
+    //console.log( `Sunucu ${port} portunda çalışıyor http://localhost:${port}`);
+    logger.info(`http://localhost:1111/ Sunucu ${port} portunda çalışıyor http://localhost:${port}`); //logger: Winston
 });
-// http://localhost:1111/daily/list
-// http://localhost:1111/daily/create
-// http://localhost:1111/daily/edit/:id
+// http://localhost:1111/
+// http://localhost:1111/create
+// http://localhost:1111/edit/:id

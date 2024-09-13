@@ -5,62 +5,59 @@
 chmod +x project_npm_local.sh
 chmod +x project_docker.sh
 chmod +x project_manuel.sh
+chmod +x countdown.sh
 
-# 1.YOL
-# Typescript compiler
-#tsc 
-##node ./dist/index.js
-#nodemon --exec ts-node ./dist/index.js
-##nodemon --exec ts-node index.ts
-##node ./index.js
-## Eğer tsconfig.json içinde => "outDir": "./dist" yazarsam
+#######################################################################################
+# npmInstall
+npmInstall(){
+    sleep 2
+    echo -e "\n npm install başladı"
 
+    # Geriye say
+    ./countdown.sh 
 
-# 2.YOL
-npm install
+    npm install
+}
+npmInstall
 
-# Eğer dist varsa sil
+#######################################################################################
+# distDelete
+distDelete(){
+     echo -e "\n dist silme başladı"
+  # Eğer dist varsa sil
 if [ -f "dist" ]; then
   rm -rf dist
   echo "Dosya silindi."
 else
   echo "Dosya bulunamadı."
-fi
+fi  
+}
+distDelete
 
-# npm run build & # tsc
-npm run build  # tsc
-npm run start  # nodemon --exec ts-node ./dist/index.js
+#######################################################################################
+# npmBuild
+npmBuild(){
+    sleep 2
+    echo -e "\n npm install başladı"
+
+    # Geriye say
+    ./countdown.sh 
+
+     # npm run build & # tsc
+    npm run build  # tsc 
+}
+npmBuild
 
 
+#######################################################################################
+# npmBuild
+npmStart(){
+    sleep 2
+    echo -e "\n npm run start başladı"
 
-npm install
+    # Geriye say
+    ./countdown.sh 
 
-# rm -rf dist
-npm run build & # tsc
-npm run start  # nodemon --exec ts-node ./dist/index.js
-
-
-
-# 3.YOL
-# node index.js
-
-# 4.YOL
-# & = anlamı
-# node index.js komutunun çalıştıktan sonra terminali "bloklayarak" (kilitleyerek) diğer komutlara geçişi engellemesidir.
-# Yani, node index.js çalıştığında terminal bu süreçte bekler ve docker-compose up -d komutunu çalıştırmaz.
-# node index.js &
-
-# 5.YOL
-#npm start
-
-# 6.YOL
-# Eğer biz bir script yazarsak run yazmak zorundayız.
-# npm run start
-
-# 7.YOL Nodemon ile ayağa kaldır
-# node monitoring
-# npm run nodemon
-
-# 8.YOL Nodemon ile ayağa kaldır
-# q: terminal çıktısındaki çok detayı gösterme
-#npm run nodemon_q
+    npm run start  # nodemon --exec ts-node ./dist/index.js
+}
+npmStart
