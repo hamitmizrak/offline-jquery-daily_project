@@ -26,8 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-console.info("index.js Server 1111 portunda ayağa kalkt.");
-console.info("http://localhost:1111/daily/list");
+console.info("index.js Server portunda ayağa kalkt.");
 // http://localhost:1111/daily/list
 // http://localhost:1111/daily/create
 // http://localhost:1111/daily/edit/:id
@@ -116,8 +115,6 @@ const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const body_parser_1 = __importDefault(require("body-parser"));
 // Cors
 const cors_1 = __importDefault(require("cors"));
-// RateLimit
-const express_rate_limit_1 = __importDefault(require("express-rate-limit"));
 // mongoose
 const dotenv = __importStar(require("dotenv"));
 const daily_api_routes_js_1 = __importDefault(require("./routes/daily_api_routes.js"));
@@ -147,23 +144,31 @@ if (process.env.NODE_ENV !== "production") {
     }));
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// NOT: Eğer MongoCloud üzerienden whitelist hatası alırsak IPAdresimizi Cloud Mongoya bağlamak lazım
+// https://cloud.mongodb.com/v2/66e344706ba7671248dacc25#/security/network/accessList
+// IP ADRESS ÖĞRENMEK
+// Powershell Terminal 
+// $ curl ifconfig.me
+// $ ifconfig 
+// IPv4 Address => Yerel IP: 192.168.x.x veya 10.x.x.x
 // Mongo DB Bağlantısı
 // username:  hamitmizrak
-// password:  0eV5X9Ekz8E5k6ES
-// mongodb+srv://hamitmizrak:0eV5X9Ekz8E5k6ES@offlinenodejscluster.l3itd.mongodb.net/?retryWrites=true&w=majority&appName=OfflineNodejsCluster
+// password:  bLuDbZ6JVaXcLcop
+// mongodb+srv://hamitmizrak:bLuDbZ6JVaXcLcop@offlinenodejscluster.l3itd.mongodb.net/?retryWrites=true&w=majority&appName=OfflineNodejsCluster
 // Localhostta MongoDB yüklüyse)
 // Bu proje için docker-compose üzerinden 27017 porta sahip mongodb kurdum
 // 1.YOL (LOCALHOST)
 // MongoDB Bağlantısı
-const databaseLocalDockerUrl = "mongodb://localhost:27017/daily";
+// NOT: mongodb docker-compose servis adı
+const databaseLocalDockerUrl = "mongodb://mongodb:27017/daily";
 // MongoDB Cloud (username,password)
 // 2.YOL
 // Localhostta MongoDB yüklüyse)
-const databaseCloudUrl = "mongodb+srv://hamitmizrak:0eV5X9Ekz8E5k6ES@offlinenodejscluster.l3itd.mongodb.net/?retryWrites=true&w=majority&appName=OfflineNodejsCluster";
+const databaseCloudUrl = "mongodb+srv://hamitmizrak:bLuDbZ6JVaXcLcop@jquery3.okxfp.mongodb.net/?retryWrites=true&w=majority&appName=jquery";
 // MongoDB Cloud (.dotenv)
 // 3.YOL
 // Localhostta MongoDB yüklüyse)
-const databaseCloudUrlDotEnv = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@offlinenodejscluster.l3itd.mongodb.net/?retryWrites=true&w=majority&appName=OfflineNodejsCluster`;
+const databaseCloudUrlDotEnv = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@jquery3.okxfp.mongodb.net/?retryWrites=true&w=majority&appName=jquery`;
 // Local ve Cloud
 const dataUrl = [
     databaseLocalDockerUrl,
@@ -271,18 +276,18 @@ app.use(helmet_1.default.noSniff());
 // Gelen istekleri sınırlayabiliriz.
 // Her 15 dakika içinde en fazla 2000 istek atılabilinir.
 // Rate limit ayarları
-const limiter = (0, express_rate_limit_1.default)({
-    windowMs: 15 * 60 * 1000, // 15 dakika
-    max: 2000, // Bu süre zarfında en fazla 2000 istek yapılabilir
-    message: "İstek sayısı fazla yapıldı, lütfen biraz sonra tekrar deneyiniz",
-    handler: (req, res, next) => {
-        res.status(429).json({
-            message: "İstek limiti aşıldı, lütfen daha sonra tekrar deneyiniz.",
-        });
-    },
-});
-// "/blog/" rotasına rate limit uygulaması
-app.use("/daily/", limiter);
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000, // 15 dakika
+//   max: 2000, // Bu süre zarfında en fazla 2000 istek yapılabilir
+//   message: "İstek sayısı fazla yapıldı, lütfen biraz sonra tekrar deneyiniz",
+//   handler: (req: Request, res: Response, next: NextFunction) => {
+//     res.status(429).json({
+//       message: "İstek limiti aşıldı, lütfen daha sonra tekrar deneyiniz.",
+//     });
+//   },
+// });
+// // "/blog/" rotasına rate limit uygulaması
+// app.use("/daily/", limiter);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CSRF
 /*
@@ -341,7 +346,7 @@ app.use((req, res, next) => {
 const port = 1111;
 app.listen(port, () => {
     console.log(`Sunucu ${port} portunda çalışıyor http://localhost:${port}/daily/list`);
-    logger.info(`Sunucu ${port} portunda çalışıyor http://localhost:${port}`); //logger: Winston
+    logger.info(`http://localhost:1111/daily/list Sunucu ${port} portunda çalışıyor http://localhost:${port}`); //logger: Winston
 });
 // http://localhost:1111/daily/list
 // http://localhost:1111/daily/create

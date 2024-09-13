@@ -1,5 +1,4 @@
-console.info("index.js Server 1111 portunda ayağa kalkt.");
-console.info("http://localhost:1111/daily/list");
+console.info("index.js Server portunda ayağa kalkt.");
 // http://localhost:1111/daily/list
 // http://localhost:1111/daily/create
 // http://localhost:1111/daily/edit/:id
@@ -157,7 +156,8 @@ if (process.env.NODE_ENV !== "production") {
 // Bu proje için docker-compose üzerinden 27017 porta sahip mongodb kurdum
 // 1.YOL (LOCALHOST)
 // MongoDB Bağlantısı
-const databaseLocalDockerUrl: string = "mongodb://localhost:27017/daily";
+// NOT: mongodb docker-compose servis adı
+const databaseLocalDockerUrl: string = "mongodb://mongodb:27017/daily";
 
 // MongoDB Cloud (username,password)
 // 2.YOL
@@ -178,7 +178,7 @@ const dataUrl = [
   databaseCloudUrlDotEnv,
 ];
 
-mongoose.connect(databaseLocalDockerUrl)
+mongoose.connect(databaseCloudUrlDotEnv)
   .then(() => {
     //console.log('Mongo DB Başarıyla Yüklendi');
     logger.info(`Mongo DB Başarıyla Yüklendi`); //logger: Winston
@@ -290,19 +290,19 @@ app.use(helmet.noSniff());
 
 // Her 15 dakika içinde en fazla 2000 istek atılabilinir.
 // Rate limit ayarları
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 dakika
-  max: 2000, // Bu süre zarfında en fazla 2000 istek yapılabilir
-  message: "İstek sayısı fazla yapıldı, lütfen biraz sonra tekrar deneyiniz",
-  handler: (req: Request, res: Response, next: NextFunction) => {
-    res.status(429).json({
-      message: "İstek limiti aşıldı, lütfen daha sonra tekrar deneyiniz.",
-    });
-  },
-});
+// const limiter = rateLimit({
+//   windowMs: 15 * 60 * 1000, // 15 dakika
+//   max: 2000, // Bu süre zarfında en fazla 2000 istek yapılabilir
+//   message: "İstek sayısı fazla yapıldı, lütfen biraz sonra tekrar deneyiniz",
+//   handler: (req: Request, res: Response, next: NextFunction) => {
+//     res.status(429).json({
+//       message: "İstek limiti aşıldı, lütfen daha sonra tekrar deneyiniz.",
+//     });
+//   },
+// });
 
-// "/blog/" rotasına rate limit uygulaması
-app.use("/daily/", limiter);
+// // "/blog/" rotasına rate limit uygulaması
+// app.use("/daily/", limiter);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // CSRF
@@ -371,7 +371,7 @@ app.listen(port, () => {
   console.log(
     `Sunucu ${port} portunda çalışıyor http://localhost:${port}/daily/list`
   );
-  logger.info(`Sunucu ${port} portunda çalışıyor http://localhost:${port}`); //logger: Winston
+  logger.info(`http://localhost:1111/daily/list Sunucu ${port} portunda çalışıyor http://localhost:${port}`); //logger: Winston
 });
 
 // http://localhost:1111/daily/list

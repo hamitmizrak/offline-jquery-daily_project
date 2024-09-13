@@ -111,7 +111,7 @@ HEALTHCHECK --interval=30s --timeout=10s \
 #@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # CMD: Konteyner başlatıldığında varsayılan olarak çalışacak komutu söyler.
 # Uygulamayı başlat
-CMD [ "node", "/dist/index.js" ]
+CMD [ "node", "index.js" ]
 
 
 ##########################################################################

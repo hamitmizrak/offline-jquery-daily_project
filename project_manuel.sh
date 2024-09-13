@@ -18,8 +18,26 @@ chmod +x project_manuel.sh
 
 # 2.YOL
 npm install
-npm run build  // tsc
-npm run start  // nodemon --exec ts-node ./dist/index.js
+
+# Eğer dist varsa sil
+if [ -f "dist" ]; then
+  rm -rf dist
+  echo "Dosya silindi."
+else
+  echo "Dosya bulunamadı."
+fi
+
+# npm run build & # tsc
+npm run build  # tsc
+npm run start  # nodemon --exec ts-node ./dist/index.js
+
+
+
+npm install
+
+# rm -rf dist
+npm run build & # tsc
+npm run start  # nodemon --exec ts-node ./dist/index.js
 
 
 

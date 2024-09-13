@@ -12,4 +12,6 @@ chmod +x project_manuel.sh
 # docker-compose up -d
 
 # Docker Compose ile Tüm servisleri çalıştır(Ayağa kaldır)
-docker-compose up --build
+docker-compose up --build 
+
+
