@@ -178,7 +178,7 @@ const dataUrl = [
   databaseCloudUrlDotEnv,
 ];
 
-mongoose.connect(databaseCloudUrl)
+mongoose.connect(databaseLocalDockerUrl)
   .then(() => {
     //console.log('Mongo DB Başarıyla Yüklendi');
     logger.info(`Mongo DB Başarıyla Yüklendi`); //logger: Winston
